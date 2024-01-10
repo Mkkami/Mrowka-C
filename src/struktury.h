@@ -1,6 +1,9 @@
 #ifndef _STRUCT_H
 #define _STRUCT_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 enum Kierunek {
     NORTH,
     EAST,
