@@ -21,28 +21,28 @@ void allocate_plansza(Plansza *plansza) {
     }
 }
 
-void wypisz_plansze(Plansza *plansza, Mrowka mrowka) {
+void wypisz_plansze(Plansza *plansza, Mrowka mrowka, FILE *file) {
     for (int i = 0; i < plansza->GRID_M; i++) {
         for (int j = 0; j < plansza->GRID_N; j++) {
             if (mrowka.x == i && mrowka.y == j) {
                 switch (mrowka.direction) {
-                    case NORTH: printf("▲|"); break;
-                    case EAST:  printf("▶|"); break;
-                    case SOUTH: printf("▼|"); break;
-                    case WEST:  printf("◀|"); break;
+                    case NORTH: fprintf(file, "▲|"); break;
+                    case EAST:  fprintf(file, "▶|"); break;
+                    case SOUTH: fprintf(file, "▼|"); break;
+                    case WEST:  fprintf(file, "◀|"); break;
                 
                     
                 }
             } else {
-                printf(plansza->dane[i][j] == WHITE ? " |": "█|");
+                fprintf(file, plansza->dane[i][j] == WHITE ? " |": "█|");
             }
         }
-        printf("\n");
+        fprintf(file, "\n");
     }
     for (int i = 0; i < 2*plansza->GRID_N; i++) {
-        printf("─");
+        fprintf(file, "─");
     }
-    printf("\n");
+    fprintf(file, "\n");
 }
 
 

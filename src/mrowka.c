@@ -16,3 +16,13 @@ void idz_przod(Plansza *plansza, Mrowka *mrowka) {
         case WEST:  mrowka->y = (mrowka->y - 1 + plansza->GRID_N) % plansza->GRID_N; break;
     }
 }
+
+enum Kierunek str_to_enum(const char *str) {
+    if (strcmp(str, "N") == 0) return NORTH;
+    if (strcmp(str, "E") == 0) return EAST;
+    if (strcmp(str, "S") == 0) return SOUTH;
+    if (strcmp(str, "W") == 0) return WEST;
+    
+    fprintf(stderr, "Zly kierunek mrowki - %s. Uzyj N, S, W lub E. \n", str);
+    exit(EXIT_FAILURE);
+}

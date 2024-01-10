@@ -8,7 +8,7 @@ void stworz_plansze(Plansza *plansza, int GRID_M, int GRID_N);
 
 void allocate_plansza(Plansza *plansza);
 
-void wypisz_plansze(Plansza *plansza, Mrowka mrowka);
+void wypisz_plansze(Plansza *plansza, Mrowka mrowka, FILE *file);
 
 void zmien_kolor(Plansza *plansza, Mrowka *mrowka);
 
