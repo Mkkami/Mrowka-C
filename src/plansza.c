@@ -39,9 +39,6 @@ void wypisz_plansze(Plansza *plansza, Mrowka mrowka, FILE *file) {
         }
         fprintf(file, "\n");
     }
-    for (int i = 0; i < 2*plansza->GRID_N; i++) {
-        fprintf(file, "─");
-    }
     fprintf(file, "\n");
 }
 

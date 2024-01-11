@@ -1,5 +1,6 @@
 #include "plansza.h"
 #include "mrowka.h"
+#include "random_gen.h"
 #include <unistd.h> // getopt
 
 int main(int argc, char **argv) {
@@ -11,9 +12,10 @@ int main(int argc, char **argv) {
     char *out_folder = "wyniki";
     char *filename = "file";
     enum Kierunek init_direction = NORTH;
+    double procent_random = 0.0;
 
     int opt;
-    while ((opt = getopt(argc, argv, "m:n:i:p:d:")) != -1) {
+    while ((opt = getopt(argc, argv, "m:n:i:p:d:r:")) != -1) {
         switch (opt) {
             case 'm':
                 GRID_M = atoi(optarg);
@@ -30,8 +32,12 @@ int main(int argc, char **argv) {
             case 'd':
                 init_direction = str_to_enum(optarg);
                 break;
+            case 'r':
+                procent_random = atof(optarg);
+                printf("%lf\n\n", procent_random);
+                break;
             default:
-                fprintf(stderr, "\t %s [-m wiersze] [-n kolumny] [-i iteracje] [-p nazwa_pliku] [-d kierunek_mrowki]\n", argv[0]);
+                fprintf(stderr, "\t %s [-m wiersze] [-n kolumny] [-i iteracje] [-p nazwa_pliku] [-d kierunek_mrowki] [-r procent_wypelnienia]\n", argv[0]);
                 exit(EXIT_FAILURE);
         }
     }
@@ -40,6 +46,10 @@ int main(int argc, char **argv) {
     Mrowka mrowka = { GRID_M / 2, GRID_N / 2, init_direction};
 
     stworz_plansze(&plansza, GRID_M, GRID_N);
+
+    if (procent_random > 0.0) {
+        wypelnij_plansze(&plansza, procent_random);
+    }
 
     char out_name[500];
     for (int step = 1; step < iteracje+1; step++) {
