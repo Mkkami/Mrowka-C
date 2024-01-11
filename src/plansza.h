@@ -3,6 +3,13 @@
 
 #include "struktury.h"
 
+#define LINE_VERTICAL │
+#define LINE_HORIZONTAL ─
+#define LINE_DOWN_RIGHT ┌
+#define LINE_DOWN_LEFT ┐
+#define LINE_UP_RIGHT └
+#define LINE_UP_LEFT ┘
+
 
 void stworz_plansze(Plansza *plansza, int GRID_M, int GRID_N);
 
