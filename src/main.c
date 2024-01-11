@@ -34,7 +34,6 @@ int main(int argc, char **argv) {
                 break;
             case 'r':
                 procent_random = atof(optarg);
-                printf("%lf\n\n", procent_random);
                 break;
             default:
                 fprintf(stderr, "\t %s [-m wiersze] [-n kolumny] [-i iteracje] [-p nazwa_pliku] [-d kierunek_mrowki] [-r procent_wypelnienia]\n", argv[0]);
@@ -52,7 +51,7 @@ int main(int argc, char **argv) {
     }
 
     char out_name[500];
-    for (int step = 1; step < iteracje+1; step++) {
+    for (int step = 0; step < iteracje+1; step++) {
         sprintf(out_name, "%s/%s_%d", out_folder, filename, step);
 
         FILE *file = fopen(out_name, "w");

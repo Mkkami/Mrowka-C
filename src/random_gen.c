@@ -25,11 +25,13 @@ void wypelnij_losowe(Plansza *plansza, int ile, int inny_kolor) {
                     plansza->dane[rand_x][rand_y] = BLACK;
                     wypelnione++;
                 }
+                break;
             case 1:
                 if (plansza->dane[rand_x][rand_y] == BLACK) {
                         plansza->dane[rand_x][rand_y] = WHITE;
                         wypelnione++;
                 }
+                break;
         }
     }
 }
