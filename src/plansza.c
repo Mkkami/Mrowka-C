@@ -23,39 +23,34 @@ void allocate_plansza(Plansza *plansza) {
 
 void wypisz_plansze(Plansza *plansza, Mrowka mrowka, FILE *file) {
     // Górna ramka
-    fprintf(file, "┌");
-    for (int j = 0; j < plansza->GRID_N; j++) {
-        fprintf(file, "─");
+    for (int j = 0; j < plansza->GRID_N+2; j++) {
+        fprintf(file, "-");
     }
-    fprintf(file, "┐\n");
+    fprintf(file, "\n");
 
     for (int i = 0; i < plansza->GRID_M; i++) {     //wiersze
-        fprintf(file, "│"); // lewa krawędź
+        fprintf(file, "|"); // lewa krawędź
 
         for (int j = 0; j < plansza->GRID_N; j++) { //kolumny
             if (mrowka.x == i && mrowka.y == j) {
                 switch (mrowka.direction) {
-                    case NORTH: fprintf(file, "▲"); break;
-                    case EAST:  fprintf(file, "▶"); break;
-                    case SOUTH: fprintf(file, "▼"); break;
-                    case WEST:  fprintf(file, "◀"); break;
+                    case NORTH: fprintf(file, "N"); break;
+                    case EAST:  fprintf(file, "E"); break;
+                    case SOUTH: fprintf(file, "S"); break;
+                    case WEST:  fprintf(file, "W"); break;
                 }
             } else {
-                fprintf(file, plansza->dane[i][j] == WHITE ? " ": "█");
+                fprintf(file, plansza->dane[i][j] == WHITE ? " ": "X");
             }
         }
 
-        fprintf(file, "│\n"); // prawa krawędź
+        fprintf(file, "|\n"); // prawa krawędź
     }
 
     // Dolna ramka
-    fprintf(file, "└");
-    for (int j = 0; j < plansza->GRID_N; j++) {
-        fprintf(file, "─");
+    for (int j = 0; j < plansza->GRID_N + 2; j++) {
+        fprintf(file, "-");
     }
-    fprintf(file, "┘\n");
-
-    fprintf(file, "\n");
 }
 
 
@@ -70,5 +65,65 @@ void zmien_kolor(Plansza *plansza, Mrowka *mrowka) {
     }
 
     idz_przod(plansza, mrowka);
+}
+
+#include "string.h"
+
+void wczytaj_plansze(Plansza *plansza, Mrowka *mrowka, FILE *in)
+{
+    char wczytanaPlansza[256][256];
+    int M = 0, N = 0;
+
+    char wiersz[256];
+    while (fgets(wiersz, 256, in))
+    {
+        strcpy(wczytanaPlansza[M++], wiersz);
+    }
+
+    N = strlen(wczytanaPlansza[0]) - 3;
+    M -= 2;
+
+    stworz_plansze(plansza, M, N);
+
+    for(int i = 1; i <= M; i++)
+    {
+        for(int j = 1; j <= N; j++)
+        {
+            if(wczytanaPlansza[i][j] == 'N')
+            {
+                mrowka->direction = NORTH;
+                mrowka->x = i-1;
+                mrowka->y = j-1;
+            }
+            else if(wczytanaPlansza[i][j] == 'E')
+            {
+                mrowka->direction = EAST;
+                mrowka->x = i-1;
+                mrowka->y = j-1;
+            }
+            else if(wczytanaPlansza[i][j] == 'S')
+            {
+                mrowka->direction = SOUTH;
+                mrowka->x = i-1;
+                mrowka->y = j-1;
+            }
+            else if(wczytanaPlansza[i][j] == 'W')
+            {
+                mrowka->direction = WEST;
+                mrowka->x = i-1;
+                mrowka->y = j-1;
+            }
+            else if(wczytanaPlansza[i][j] == ' ')
+            {
+                plansza->dane[i-1][j-1] = WHITE;
+            }
+            else if(wczytanaPlansza[i][j] == 'X')
+            {
+                plansza->dane[i-1][j-1] = BLACK;
+            }
+        }
+    }
+
+    //wypisz_plansze(plansza, *mrowka, stdout); --->Test
 }
 

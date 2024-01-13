@@ -44,6 +44,10 @@ int main(int argc, char **argv) {
     Plansza plansza;
     Mrowka mrowka = { GRID_M / 2, GRID_N / 2, init_direction};
 
+    // FILE *WczytajTest = fopen("plik_7.txt", "r");
+    // wczytaj_plansze(&plansza, &mrowka, WczytajTest);
+    // fclose(WczytajTest);
+
     stworz_plansze(&plansza, GRID_M, GRID_N);
 
     if (procent_random > 0.0) {

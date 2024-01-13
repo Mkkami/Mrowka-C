@@ -19,5 +19,6 @@ void wypisz_plansze(Plansza *plansza, Mrowka mrowka, FILE *file);
 
 void zmien_kolor(Plansza *plansza, Mrowka *mrowka);
 
+void wczytaj_plansze(Plansza *plansza, Mrowka *mrowka, FILE *in);
 
 #endif
