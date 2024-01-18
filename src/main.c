@@ -9,10 +9,11 @@ int main(int argc, char **argv) {
     int GRID_M = 50;
     int GRID_N = 50;
     int iteracje = 20;
-    char *out_folder = "wyniki";
-    char *filename = "file";
     enum Kierunek init_direction = NORTH;
     double procent_random = 0.0;
+    char *filename = NULL;
+    char *out_folder = "wyniki";
+    int IF_FILE = 0;
 
     int opt;
     while ((opt = getopt(argc, argv, "m:n:i:p:d:r:")) != -1) {
@@ -28,6 +29,7 @@ int main(int argc, char **argv) {
                 break;
             case 'p':
                 filename = optarg;
+                IF_FILE = 1;
                 break;
             case 'd':
                 init_direction = str_to_enum(optarg);
@@ -52,12 +54,21 @@ int main(int argc, char **argv) {
 
     char out_name[500];
     for (int step = 0; step < iteracje+1; step++) {
-        sprintf(out_name, "%s/%s_%d", out_folder, filename, step);
+        switch (IF_FILE) {
+            case 1:
+                sprintf(out_name, "%s/%s_%d", out_folder, filename, step);
 
-        FILE *file = fopen(out_name, "w");
-        wypisz_plansze(&plansza, mrowka, file);
-        zmien_kolor(&plansza, &mrowka);
-        fclose(file);
+                FILE *file = fopen(out_name, "w");
+                wypisz_plansze(&plansza, mrowka, file);
+                zmien_kolor(&plansza, &mrowka);
+                fclose(file);
+                break;
+            case 0:
+                wypisz_plansze(&plansza, mrowka, stdout);
+                zmien_kolor(&plansza, &mrowka);
+                break;
+        }
+
     }
 
     return 0;

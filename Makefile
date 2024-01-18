@@ -13,5 +13,8 @@ test_r: all clean
 test_10000: all clean
 	bin/mrowka -m 50 -n 50 -i 10000 -p plik -d N
 
+test_stdout: all
+	bin/mrowka -m 50 -n 50 -i 10 -d N
+
 clean:
 	rm -f wyniki/*
