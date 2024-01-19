@@ -52,6 +52,7 @@ void wypelnij_plansze(Plansza *plansza, double procent) {
         if (procent > 50.0) {
             zmien_na_czarne(plansza);
             procent = 100.0 - procent;
+            inny_kolor = 1;
         }
         int wypelnione = (int)(procent / 100.0 * ile_komorek);
         printf("wypelnione: %d\n", wypelnione);
